@@ -34,7 +34,7 @@ class MainMenu:
 menu = MainMenu()
 
 class Person:
-    def __init__(self,x,y,r,name = "Adam",surname = "Kowalski",bornYear = "2000",img = []) -> None:
+    def __init__(self,x=300,y=300,r=100,name = "Adam",surname = "Kowalski",bornYear = 2000,img = []) -> None:
         self.x = x
         self.y = y
         self.r = r
@@ -50,7 +50,7 @@ class Person:
         pygame.draw.circle(win,self.color,(self.x,self.y),self.r)
         for relation in list(self.relations):
             pygame.draw.line(win,self.color,(self.x,self.y),(relation.x,relation.y))
-        s = FONT1.render(self.name + " " + self.surname + " " + "(" + self.bornYear + ")", 1, (0,255,255))
+        s = FONT1.render(str(self.name) + " " + str(self.surname) + " " + "(" + str(self.bornYear) + ")", 1, (0,255,255))
         win.blit(s,(self.x -s.get_width()//2,(self.y-s.get_height()//2)+50))
 
 
@@ -66,17 +66,18 @@ class Game:
     def __init__(self) -> None:
         self.persons = []
         self.button3 = False
-
-    def addPerson(self,x,y,r):
-        self.persons.append(Person(x,y,r))
-
+    
+    def addPerson(self,name="Adam",surname="Kowalski",bornYear=2000):
+        self.persons.append(Person(name=name,surname=surname,bornYear=bornYear))
+        
+    
     def main(self,win):
         clock = pygame.time.Clock()
         run = True
         root = None
         relationBool = False
         tempSet = set()
-        person = Person(100,100,50)
+        person = Person()
         while run:
 
             win.fill((255,255,200))
@@ -117,13 +118,14 @@ class Game:
                     x,y = pygame.mouse.get_pos()
                     if x in range(menu.x,menu.x + menu.width) and y in range(menu.y,menu.y + menu.heigth):
                         if x in range(menu.x+menu.button,menu.x+2*menu.button) and y in range(menu.y+(menu.heigth-menu.button)//2,menu.y+(menu.heigth-menu.button)//2+menu.button):
-                            self.addPerson(300,300,100)
+                            self.addPerson()
                         elif x in range(menu.x+3*menu.button,menu.x+4*menu.button) and y in range(menu.y+(menu.heigth-menu.button)//2,menu.y+(menu.heigth-menu.button)//2+menu.button):
                             relationBool = True
                         elif x in range(menu.x+5*menu.button,menu.x+6*menu.button) and y in range(menu.y+(menu.heigth-menu.button)//2,menu.y+(menu.heigth-menu.button)//2+menu.button):
                             self.button3 = True
                             if root:
                                 root.quit()
+                            
                                 
 
 
@@ -152,16 +154,20 @@ class Game:
                 person.draw(win)
 
             if self.button3:
-                root = tk.Tk()
-                root.geometry("500x500") 
+                root = Tk()
+                root.geometry("500x500")
+                firstname_text = Label(text = "Firstname ",)
+                firstname_text.place(x = 15, y = 70)
+                firstname = StringVar()
+                firstname_entry = Entry(textvariable=firstname,width = "30")
+                firstname_entry.place(x = 15 ,y = 100)
+                register = Button(text = "Register", width="30",height="2",command = self.addPerson(firstname.get()))
+                register.place(x = 0, y = 130)
             
             pygame.display.update()
 
             if root:
                 root.mainloop()
-            
-
-            
             
 if __name__ == "__main__":
     game = Game()
