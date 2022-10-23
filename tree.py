@@ -49,7 +49,6 @@ class PersonList:
         pygame.draw.rect(win,self.color,(self.x,self.y,self.length,self.height))
 
 #klasa przycisk
-
 """
 class Button:
 	def __init__(self, x, y, image, scale):
@@ -62,10 +61,8 @@ class Button:
 
 	def draw(self, surface):
 		action = False
-		#get mouse position
 		pos = pygame.mouse.get_pos()
 
-		#check mouseover and clicked conditions
 		if self.rect.collidepoint(pos):
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
 				self.clicked = True
@@ -74,12 +71,10 @@ class Button:
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
 
-		#draw button on screen
 		surface.blit(self.image, (self.rect.x, self.rect.y))
 
 		return action
-
-"""    
+"""
 
 class Person:
     def __init__(self,x=300,y=300,r=100,name = "Adam",surname = "Kowalski",bornYear = 2000,img = []) -> None:
@@ -105,8 +100,6 @@ class Person:
             pygame.draw.line(win,self.color,(self.x,self.y),(relation.x,relation.y)) #rysuje relacje między osobami
         s = FONT1.render(str(self.name) + " " + str(self.surname) + " " + "(" + str(self.bornYear) + ")", 1, (0,255,255)) 
         win.blit(s,(self.x -s.get_width()//2,(self.y-s.get_height()//2)+50)) #wyświetla imię, nazwisko i rok urodzenia
-
-
 
     def options(self,win): #w planie będzie tworzyło listę rozwijaną
         pass
@@ -167,13 +160,18 @@ class Game:
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x,y = pygame.mouse.get_pos()
+                    if not self.persons and event.button == 3:
+                        personList = PersonList(x,y)
+                    #tworzy listę poza osobą
+
                     for person in self.persons:
                         if ((x-person.x)**2 + (y-person.y)**2)**0.5 <= person.r and not relationBool:
                             if event.button == 1:
                                 person.bool = True
-                                self.currentPerson = person
+                                #self.currentPerson = person
                             elif event.button == 3:
                                 personList = PersonList(x,y)
+                                self.currentPerson = person
                             #tworzy listę dla osoby
                     
                         
@@ -182,8 +180,14 @@ class Game:
                         elif ((x-person.x)**2 + (y-person.y)**2)**0.5 <= person.r and relationBool:
                             tempSet.add(person)
                     #służy do dodawania relacji między osobami
-                        if event.button == 1 and personList != None:
-                            personList = None
+                        else:
+                            if event.button == 3:
+                                personList = PersonList(x,y)
+                                
+                            #tworzy listę poza osobą
+
+                    if event.button == 1 and personList != None:
+                        personList = None
                     #usuwa listę dla osoby
 
                 if event.type == pygame.MOUSEBUTTONUP:
