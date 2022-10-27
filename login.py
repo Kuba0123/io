@@ -3,65 +3,53 @@ from tkinter import messagebox
 
 
 class Login:
-    def loginForm(self):
-        root = Tk()
-        root.title('Login')
-        root.geometry('400x300')
-        root.configure(bg="white")
-        root.resizable(False, False)
+    def __init__(self, root):
+        self.root = root
+        self.root.title('Login')
+        self.root.geometry('400x300')
+        self.root.configure(bg="white")
+        self.root.resizable(False, False)
 
-        def signin():
-            username = user.get()
-            passw = password.get()
-
-            if username == 'admin' and passw == 'admin':
-                print('poprawne')
-
-            else:
-                messagebox.showerror('Błąd w logowaniu', 'Nieprawidłowy login lub hasło')
-
-        frame = Frame(root, width=300, height=250, bg="white")
-        frame.place(x=55, y=25)
-        heading = Label(frame, text='LOGIN', fg='#717F8A', bg='white', font=('Microsoft YaHei UI Light', 18, 'bold'))
+        self.frame = Frame(root, width=300, height=250, bg="white")
+        self.frame.place(x=55, y=25)
+        heading = Label(self.frame, text='LOGIN', fg='#717F8A', bg='white',
+                        font=('Microsoft YaHei UI Light', 18, 'bold'))
         heading.place(x=100, y=10)
 
-        # username
-        def on_enter(e):
-            user.delete(0, 'end')
+        self.username = Entry(self.frame, width=25, fg='black', border=1, bg='white',
+                              font=('Microsoft YaHei UI Light', 9))
+        self.username.place(x=55, y=80)
+        self.username.insert(0, 'Nazwa użytkownika')
 
-        def on_leave(e):
-            name = user.get()
-            if name == '':
-                user.insert(0, 'Nazwa użytkownika')
+        self.password = Entry(self.frame, width=25, fg='black', border=1, bg='white',
+                              font=('Microsoft YaHei UI Light', 9))
+        self.password.place(x=55, y=120)
+        self.password.insert(0, 'Hasło')
 
-        user = Entry(frame, width=25, fg='black', border=1, bg='white', font=('Microsoft YaHei UI Light', 9))
-        user.place(x=55, y=80)
-        user.insert(0, 'Nazwa użytkownika')
-        user.bind('<FocusIn>', on_enter)
-        user.bind('<FocusOut>', on_leave)
+        self.button = Button(self.frame, width=20, pady=10, text='Zaloguj się', bg='#717F8A', fg='white', border=1,
+                             command=self.signIn)
+        self.button.place(x=70, y=170)
+        self.username.bind('<FocusIn>', self.onEnterUser)
+        self.password.bind('<FocusIn>', self.onEnterPassw)
 
-        # password
-        def on_enter(e):
-            password.delete(0, 'end')
+    def signIn(self):
+        self.user = self.username.get()
+        self.passw = self.password.get()
 
-        def on_leave(e):
-            name = password.get()
-            if name == '':
-                password.insert(0, 'Hasło')
+        if self.user == 'admin' and self.passw == 'admin':
+            print('Poprawnie')
 
-        password = Entry(frame, width=25, fg='black', border=1, bg='white', font=('Microsoft YaHei UI Light', 9))
-        password.place(x=55, y=120)
-        password.insert(0, 'Hasło')
-        password.bind('<FocusIn>', on_enter)
-        password.bind('<FocusOut>', on_leave)
+        else:
+            messagebox.showerror('Błąd!', 'Nieprawidłowy login lub hasło')
 
-        # button
-        button = Button(frame, width=20, pady=10, text='Zaloguj się', bg='#717F8A', fg='white', border=1,
-                        command=signin)
-        button.place(x=70, y=170)
-        label = Label(frame, text="")
+    def onEnterUser(self, e):
+        self.username.delete(0, 'end')
 
-        root.mainloop()
+    def onEnterPassw(self, e):
+        self.password.delete(0, 'end')
 
-login = Login()
-login.loginForm()
+
+if __name__ == "__main__":
+    root = Tk()
+    login = Login(root)
+    root.mainloop()
