@@ -1,0 +1,6 @@
+1. Odczy do pliku JSON
+2. Zapis do pliku JSON
+3. Naprawić błąd, że gdy przeciągniemy jedną osobę na drugą to łączy się w jedną nierozdzielnie
+4. Naprawić/napisać wyświetlanie relacji między osobami
+5. Napisać funkcję wywoływaną po kliknięciu w przycisk log out
+6. Poprawić wygląd aplikacji 
