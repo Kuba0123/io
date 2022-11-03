@@ -3,4 +3,8 @@
 3. Naprawić błąd, że gdy przeciągniemy jedną osobę na drugą to łączy się w jedną nierozdzielnie (naprawione)
 4. Naprawić/napisać wyświetlanie relacji między osobami (w miarę działa)
 5. Napisać funkcję wywoływaną po kliknięciu w przycisk log out
-6. Poprawić wygląd aplikacji 
+6. Naprawić wyświetlanie się drugiej listy rozwijanej (naprawione)
+7. Poprawić wygląd aplikacji 
+8. Naprawić usuwanie osób i ich relacji (naprawione)
+9. Automatyzacja relacji
+ 
