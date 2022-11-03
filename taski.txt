@@ -7,4 +7,3 @@
 7. Poprawić wygląd aplikacji 
 8. Naprawić usuwanie osób i ich relacji (naprawione)
 9. Automatyzacja relacji
- 
