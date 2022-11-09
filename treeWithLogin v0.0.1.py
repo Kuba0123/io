@@ -36,12 +36,12 @@ class Login:
         self.username = Entry(self.frame, width=25, fg='black', border=1, bg='white',
                               font=('Microsoft YaHei UI Light', 9))
         self.username.place(x=55, y=80)
-        self.username.insert(0, 'Nazwa użytkownika')
+        self.username.insert(0, 'Username')
 
         self.password = Entry(self.frame, width=25, fg='black', border=1, bg='white',
                               font=('Microsoft YaHei UI Light', 9))
         self.password.place(x=55, y=120)
-        self.password.insert(0, 'Hasło')
+        self.password.insert(0, 'Password')
 
         self.button = Button(self.frame, width=20, pady=10, text='Zaloguj się', bg='#717F8A', fg='white', border=1,
                              command=self.signIn)
@@ -61,7 +61,7 @@ class Login:
             game.main()
 
         else:
-            messagebox.showerror('Błąd!', 'Nieprawidłowy login lub hasło')
+            messagebox.showerror('Error!', 'Invalid username or password')
 
     def onEnterUser(self, e):
         self.username.delete(0, 'end')
