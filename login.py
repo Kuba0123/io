@@ -3,7 +3,6 @@ from tkinter import messagebox
 import hashlib
 import os.path
 from os import path
-import pandas as pd
 
 
 class LoginForm:
@@ -14,25 +13,31 @@ class LoginForm:
         self.rootLogin.configure(bg="white")
         self.rootLogin.resizable(False, False)
 
-        self.frame = Frame(rootLogin, width=300, height=250, bg="white")
-        self.frame.place(x=55, y=25)
+        self.frame = Frame(rootLogin, width=400, height=300, bg="white")
+        self.frame.place(x=0, y=0)
         heading = Label(self.frame, text='LOGIN', fg='#717F8A', bg='white',
                         font=('Microsoft YaHei UI Light', 18, 'bold'))
-        heading.place(x=100, y=10)
+        heading.place(x=155, y=10)
+
+        usernamelabel = Label(self.frame, text='Username:', fg='black', bg='white',
+                              font=('Microsoft YaHei UI Light', 9))
+        usernamelabel.place(x=45, y=80)
+
+        passwordlabel = Label(self.frame, text='Password:', fg='black', bg='white',
+                              font=('Microsoft YaHei UI Light', 9))
+        passwordlabel.place(x=50, y=120)
 
         self.username = Entry(self.frame, width=25, fg='black', border=1, bg='white',
                               font=('Microsoft YaHei UI Light', 9))
-        self.username.place(x=55, y=80)
-        self.username.insert(0, 'Username')
+        self.username.place(x=110, y=80)
 
         self.password = Entry(self.frame, width=25, fg='black', border=1, bg='white',
                               font=('Microsoft YaHei UI Light', 9), show='*')
-        self.password.place(x=55, y=120)
-        self.password.insert(0, 'Password')
+        self.password.place(x=110, y=120)
 
         self.buttonLogin = Button(self.frame, width=20, pady=10, text='Log In', bg='#717F8A', fg='white', border=1,
                                   command=self.LogIn)
-        self.buttonLogin.place(x=70, y=170)
+        self.buttonLogin.place(x=125, y=170)
 
         self.buttonRegister = Button(text='Don\'t have an account yet? Click here', borderwidth=0, bg='white',
                                      command=self.Register)
@@ -44,28 +49,40 @@ class LoginForm:
         self.Register.geometry('400x300')
         self.Register.resizable(False, False)
         self.Register.configure(bg="white")
-        self.frame = Frame(self.Register, width=300, height=250, bg="white")
-        self.frame.place(x=55, y=0)
-        headingRegister = Label(self.frame, text='REGISTER', fg='#717F8A', bg='white',
+        self.frame = Frame(self.Register, width=400, height=300, bg="white")
+        self.frame.place(x=0, y=0)
+
+        headingregister = Label(self.frame, text='REGISTER', fg='#717F8A', bg='white',
                                 font=('Microsoft YaHei UI Light', 18, 'bold'))
-        headingRegister.place(x=85, y=0)
+        headingregister.place(x=135, y=0)
+
+        usernamereglabel = Label(self.frame, text='Username:', fg='black', bg='white',
+                                 font=('Microsoft YaHei UI Light', 9))
+        usernamereglabel.place(x=45, y=70)
+
+        passwordlabel = Label(self.frame, text='Password:', fg='black', bg='white',
+                              font=('Microsoft YaHei UI Light', 9))
+        passwordlabel.place(x=50, y=120)
+
+        confpasswordlabel = Label(self.frame, text='Confirm\npassword:', fg='black', bg='white',
+                                  font=('Microsoft YaHei UI Light', 9))
+        confpasswordlabel.place(x=50, y=153)
+
         self.usernameReg = Entry(self.frame, width=25, fg='black', border=1, bg='white',
                                  font=('Microsoft YaHei UI Light', 9))
-        self.usernameReg.place(x=55, y=70)
-        self.usernameReg.insert(0, 'Username')
+        self.usernameReg.place(x=110, y=70)
+
         self.passwordReg = Entry(self.frame, width=25, fg='black', border=1, bg='white',
                                  font=('Microsoft YaHei UI Light', 9), show='*')
-        self.passwordReg.place(x=55, y=110)
-        self.passwordReg.insert(0, 'Password')
+        self.passwordReg.place(x=110, y=120)
+
         self.confirmPasswordReg = Entry(self.frame, width=25, fg='black', border=1, bg='white',
                                         font=('Microsoft YaHei UI Light', 9), show='*')
-        self.confirmPasswordReg.place(x=55, y=150)
-        self.confirmPasswordReg.insert(0, 'Confirm Password')
+        self.confirmPasswordReg.place(x=110, y=170)
 
         self.buttonSingup = Button(self.frame, width=20, pady=10, text='Sign Up', bg='#717F8A', fg='white', border=1,
                                    command=self.SignUp)
-        self.buttonSingup.place(x=70, y=200)
-
+        self.buttonSingup.place(x=125, y=220)
 
     def SignUp(self):
         i = 1
@@ -80,7 +97,7 @@ class LoginForm:
                                 f.write(self.usernameReg.get() + ':' + hashlib.sha256(
                                     self.passwordReg.get().encode('utf-8')).hexdigest() + ':')
 
-                                while path.isfile(str(i)+'.json'):     # Tworzenie pliku .json
+                                while path.isfile(str(i) + '.json'):  # Tworzenie pliku .json
                                     i += 1
 
                                 name = str(i) + '.json'
@@ -98,7 +115,6 @@ class LoginForm:
                 messagebox.showerror('Error', 'Username already exists!')
 
     def LogIn(self):
-
         with open('login.txt', 'r') as f:
             content = f.read()
 
@@ -113,6 +129,7 @@ class LoginForm:
                     messagebox.showerror('Error', 'Invalid username or password!')
             else:
                 messagebox.showerror('Error', 'Invalid username or password!')
+
 
 if __name__ == "__main__":
     root = Tk()
